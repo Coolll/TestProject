@@ -19,6 +19,11 @@
 
 }
 
+- (void)masterMethod
+{
+    NSLog(@"在master中有更新了");
+}
+
 
 
 
