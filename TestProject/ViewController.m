@@ -18,6 +18,10 @@
     [super viewDidLoad];
 
 }
+- (void)testOneMethod
+{
+    NSLog(@"方法1");
+}
 
 
 
