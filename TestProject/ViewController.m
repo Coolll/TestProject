@@ -27,13 +27,20 @@
 - (void)testTwoMethod
 {
     NSLog(@"写在branch dev2.1中");
+    NSLog(@"我在dev2.1中又增加了一个打印");
 }
+
 
 - (void)testThreeMethod
 {
     NSLog(@"写在branch dev中");
 }
 
+
+- (void)testFourMethod
+{
+    NSLog(@"这个是在dev2.1中的");
+}
 
 
 
