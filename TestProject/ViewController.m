@@ -18,9 +18,15 @@
     [super viewDidLoad];
 
 }
+
 - (void)testOneMethod
 {
     NSLog(@"方法1");
+}
+
+- (void)testTwoMethod
+{
+    NSLog(@"写在branch dev2.1中");
 }
 
 
