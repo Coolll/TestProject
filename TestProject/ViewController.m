@@ -29,6 +29,11 @@
     NSLog(@"写在branch dev2.1中");
 }
 
+- (void)testThreeMethod
+{
+    NSLog(@"写在branch dev中");
+}
+
 
 
 
