@@ -19,6 +19,7 @@
 
 }
 
+
 - (void)testOneMethod
 {
     NSLog(@"方法1");
@@ -29,6 +30,12 @@
     NSLog(@"写在branch dev2.1中");
     NSLog(@"我在dev2.1中又增加了一个打印");
 }
+
+- (void)masterMethod
+{
+    NSLog(@"在master中有更新了");
+}
+
 
 - (void)testFourMethod
 {
