@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		07983F6C1F1F413D00866516 /* Student.m in Sources */ = {isa = PBXBuildFile; fileRef = 07983F6B1F1F413D00866516 /* Student.m */; };
 		07AE21E51F161DB1002DA2FA /* Person.m in Sources */ = {isa = PBXBuildFile; fileRef = 07AE21E41F161DB1002DA2FA /* Person.m */; };
 		07AE21E81F161DD8002DA2FA /* Boy.m in Sources */ = {isa = PBXBuildFile; fileRef = 07AE21E71F161DD8002DA2FA /* Boy.m */; };
 		07AE21EB1F1625A1002DA2FA /* Book.m in Sources */ = {isa = PBXBuildFile; fileRef = 07AE21EA1F1625A1002DA2FA /* Book.m */; };
@@ -38,6 +39,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		07983F6A1F1F413D00866516 /* Student.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Student.h; sourceTree = "<group>"; };
+		07983F6B1F1F413D00866516 /* Student.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Student.m; sourceTree = "<group>"; };
 		07AE21E31F161DB1002DA2FA /* Person.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Person.h; sourceTree = "<group>"; };
 		07AE21E41F161DB1002DA2FA /* Person.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Person.m; sourceTree = "<group>"; };
 		07AE21E61F161DD8002DA2FA /* Boy.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Boy.h; sourceTree = "<group>"; };
@@ -125,6 +128,8 @@
 				07AE21E71F161DD8002DA2FA /* Boy.m */,
 				07AE21E91F1625A1002DA2FA /* Book.h */,
 				07AE21EA1F1625A1002DA2FA /* Book.m */,
+				07983F6A1F1F413D00866516 /* Student.h */,
+				07983F6B1F1F413D00866516 /* Student.m */,
 			);
 			path = TestProject;
 			sourceTree = "<group>";
@@ -295,6 +300,7 @@
 				07DD43091F147DD2004F8236 /* AppDelegate.m in Sources */,
 				07AE21E81F161DD8002DA2FA /* Boy.m in Sources */,
 				07AE21E51F161DB1002DA2FA /* Person.m in Sources */,
+				07983F6C1F1F413D00866516 /* Student.m in Sources */,
 				07AE21EB1F1625A1002DA2FA /* Book.m in Sources */,
 				07DD43061F147DD2004F8236 /* main.m in Sources */,
 			);
