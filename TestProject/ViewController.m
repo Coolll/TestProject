@@ -14,9 +14,23 @@
 #import "Student.h"
 #import <objc/runtime.h>
 
+#import "SecondViewController.h"
+#import "Masonry.h"
+
+#define PhoneScreen_HEIGHT [UIScreen mainScreen].bounds.size.height
+#define PhoneScreen_WIDTH [UIScreen mainScreen].bounds.size.width
+
+#define HostString @"http://www.baidu.com/"
+#define NeedChange 10
+#define HostWithURL(_OriginURL_)\
+NSMutableString *mutable = [NSMutableString stringWithString:[NSString stringWithString:_OriginURL_]];\
+if ([mutable containsString:@"http://www.duobao166.com/"] && NeedChange == 100) {\
+NSString *newString = [mutable stringByReplacingOccurrencesOfString:@"http://www.duobao166.com/" withString:[NSString stringWithFormat:@"%@",HostString]];\
+_OriginURL_=newString;\
+}
 
 typedef void(^MyBlock)(void);
-@interface ViewController ()
+@interface ViewController ()<UITableViewDelegate,UITableViewDataSource>
 
 {
     NSInteger value;
@@ -35,14 +49,142 @@ typedef void(^MyBlock)(void);
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    self.edgesForExtendedLayout = UIRectEdgeNone;
+    
+    self.navigationController.navigationBar.translucent = NO;
+    
+    NSString *orgi = @"http://www.duobao166.com/?/getMoney";
+    HostWithURL(orgi);
+    NSLog(@"origin:%@",orgi);
+
+
+    
+    [self loadCustomTableView];
+}
+
+- (void)loadCustomTableView
+{
+    UITableView *tableView = [[UITableView alloc]initWithFrame:CGRectMake(0, 0, PhoneScreen_WIDTH, PhoneScreen_HEIGHT-64)];
+    tableView.delegate = self;
+    tableView.dataSource = self;
+    tableView.showsVerticalScrollIndicator = NO;
+    [self.view addSubview:tableView];
+}
+
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
+{
+    return 60;
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+
+    return 100.0;
+}
+
+- (UITableViewCell*)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    static NSString *identifier = @"MyTableViewCell";
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:identifier];
+    
+    if (!cell) {
+        
+        cell = [[UITableViewCell alloc]initWithFrame:CGRectMake(0, 0, PhoneScreen_WIDTH, 100)];
+        cell.selectionStyle = UITableViewCellSelectionStyleNone;
+        
+        UIImageView *imageView = [[UIImageView alloc]init];
+        imageView.image = [UIImage imageNamed:@"dds"];
+        
+//        imageView.layer.shouldRasterize = YES;
+        
+        if (indexPath.row == 2) {
+            imageView.image = [UIImage imageNamed:@"ss"];
+        }else if(indexPath.row == 3){
+        
+            imageView.image = [UIImage imageNamed:@"yt"];
+        }
+        imageView.layer.cornerRadius = 40;
+        imageView.layer.masksToBounds = YES;
+        
+//        imageView.alpha = 0.7;
+//        imageView.layer.shadowOffset = CGSizeMake(0,-14);
+//        imageView.layer.shadowColor = [UIColor lightGrayColor].CGColor;
+        [cell addSubview:imageView];
+        
+        [imageView mas_makeConstraints:^(MASConstraintMaker *make) {
+           
+            make.left.equalTo(cell.mas_left).offset(10);
+            make.top.equalTo(cell.mas_top).offset(10);
+            make.bottom.equalTo(cell.mas_bottom).offset(-10);
+            
+            make.width.mas_equalTo(80);
+            
+        }];
+        
+        UILabel *textLabel = [[UILabel alloc]init];
+        textLabel.text = @"比尔吉沃特";
+        textLabel.font = [UIFont boldSystemFontOfSize:15.0];
+        textLabel.backgroundColor = [UIColor whiteColor];
+        [cell addSubview:textLabel];
+        
+        [textLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+            
+            make.left.equalTo(imageView.mas_right).offset(10);
+            make.top.equalTo(imageView.mas_top).offset(10);
+            make.right.equalTo(cell.mas_right).offset(-10);
+            make.height.mas_equalTo(30);
+        }];
+        
+        
+        
+        
+        
+    }
+    
+    
+    
+    
+    
+    
+    return cell;
+}
+/*
+=====================================视图跳转时，方法执行顺序
+- (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event
+{
+    SecondViewController *vc = [[SecondViewController alloc]init];
+    [self.navigationController pushViewController:vc animated:YES];
+    
+}
+
+- (void)viewWillDisappear:(BOOL)animated
+{
+    [super viewWillDisappear:animated];
+    NSLog(@"A willDisappear");
+}
+
+- (void)viewDidDisappear:(BOOL)animated
+{
+    [super viewDidDisappear:animated];
+    
+    NSLog(@"A Disappear");
+}
+*/
+
+/* 方法替换
+- (void)viewDidLoad {
+    [super viewDidLoad];
     
     Student *st = [[Student alloc]init];
     
     [st customMethodOne];
     
 }
+*/
 
-/*
+
+/* 
+ =====================================完整的方法转发
 - (void)viewDidLoad {
     [super viewDidLoad];
     
@@ -84,6 +226,7 @@ typedef void(^MyBlock)(void);
 */
 
 /*
+ =====================================备用接受者
 - (void)viewDidLoad {
     [super viewDidLoad];
     
@@ -108,6 +251,7 @@ typedef void(^MyBlock)(void);
 
 
 /*
+ =====================================方法拦截
 - (void)viewDidLoad {
     [super viewDidLoad];
     
@@ -158,7 +302,9 @@ void RuntimeAddMethod(id self,SEL _cmd,NSString *string){
 
 
 
+/*
 
+ =====================================Runtime属性
 - (void)testRuntime
 {
     unsigned int count;
@@ -210,8 +356,11 @@ void RuntimeAddMethod(id self,SEL _cmd,NSString *string){
     }
     
 }
+*/
 
 
+/*
+ =====================================Block的位置
 - (void)testBlock
 {
     //如果是strong类型的block，且没有捕获外部变量，那么就会转换成全局的block
@@ -236,7 +385,7 @@ void RuntimeAddMethod(id self,SEL _cmd,NSString *string){
     //创建时，没有捕获外部变量，为全局block，同1
     NSLog(@"FourBlock:%@",^(){ NSLog(@"FourBlock");});
 
-    /*
+ 
     //使用weak修饰的block，不会自动进行copy，block在栈中
     __weak void(^FiveBlock)() = ^(){
         
@@ -245,17 +394,14 @@ void RuntimeAddMethod(id self,SEL _cmd,NSString *string){
     };
     
     NSLog(@"FiveBlock:%@",FiveBlock);
-    */
+ 
 
 }
 
-- (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event
-{
-    NSLog(@"myBlock:%@",self.myBlock);
+*/
 
-}
-
-
+/*
+=====================================load方法测试
 - (void)testLoadMethod
 {
     Person *a = [[Person alloc]init];
@@ -267,6 +413,8 @@ void RuntimeAddMethod(id self,SEL _cmd,NSString *string){
     NSLog(@"abc:%@%@%@",a,b,c);
 
 }
+*/
+
 
 - (void)testOneMethod
 {
